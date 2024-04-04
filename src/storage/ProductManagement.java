@@ -1,16 +1,18 @@
 package storage;
 
+import file.ReadWriteFile;
 import file.RegexPattern;
 import model.*;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 
-public class ProductManagement {
+public class ProductManagement implements ShowList {
     private final List<Mouse> mouseList;
     private final List<Laptop> laptopList;
     private final List<Keyboard> keyboardList;
@@ -26,6 +28,21 @@ public class ProductManagement {
         headphoneList = new ArrayList<>();
         chargerList = new ArrayList<>();
         this.scanner = scanner;
+    }
+    public List<Mouse> getMouseList(){
+        return mouseList;
+    }
+    public List<Laptop> getLaptopList(){
+        return laptopList;
+    }
+    public List<Keyboard> getKeyboardList(){
+        return keyboardList;
+    }
+    public List<Headphone> getHeadphoneList(){
+        return headphoneList;
+    }
+    public List<Charger> getChargerList(){
+        return chargerList;
     }
 
     public void addMouse() {
@@ -707,7 +724,8 @@ public class ProductManagement {
 
     }
 
-    public void showList(List<Product> product) {
+
+    public void showList(List<? extends  Product> product) {
         if (product.isEmpty()) {
             System.out.println("danh sach san pham dang trong");
         } else {
@@ -762,11 +780,145 @@ public class ProductManagement {
             }
 
         }
-        
+        public void deleteProductById(){
+            System.out.println("Nhap ma san pham ban muon xoa: ");
+            String inputId = scanner.nextLine();
+            boolean check = false;
 
+            for (Mouse mouse : mouseList) {
+                if (mouse.getId().equals(inputId)) {
+                    System.out.println(mouse.toString());
+                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                    String input= scanner.nextLine();
+                    if (input.equals("y")){
+                        mouseList.remove(mouse);
+                        System.out.println("Da xoa thanh cong.");
+                        break;
+                    }
+                    else if(input.equalsIgnoreCase("n")){
+                        System.out.println("thoat chương trình");
+                        return;
+                    }
+                    check=true;
 
+                }
+            }
+            for (Laptop laptop : laptopList) {
+                if (laptop.getId().equals(inputId)) {
+                    System.out.println(laptop.toString());
+                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                    String input= scanner.nextLine();
+                    if (input.equals("y")){
+                        laptopList.remove(laptop);
+                        System.out.println("Da xoa thanh cong.");
+                        break;
+                    }
+                    else if(input.equalsIgnoreCase("n")){
+                        System.out.println("thoat chương trình");
+                        return;
+                    }
+                    check=true;
 
+                }
+            }
+            for (Keyboard keyboard : keyboardList) {
+                if (keyboard.getId().equals(inputId)) {
+                    System.out.println(keyboard.toString());
+                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                    String input= scanner.nextLine();
+                    if (input.equals("y")){
+                        keyboardList.remove(keyboard);
+                        System.out.println("Da xoa thanh cong.");
+                        break;
+                    }
+                    else if(input.equalsIgnoreCase("n")){
+                        System.out.println("thoat chương trình");
+                        return;
+                    }
+                    check=true;
+
+                }
+            }
+            for (Headphone headphone : headphoneList) {
+                if (headphone.getId().equals(inputId)) {
+                    System.out.println(headphone.toString());
+                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                    String input= scanner.nextLine();
+                    if (input.equals("y")){
+                        headphoneList.remove(headphone);
+                        System.out.println("Da xoa thanh cong.");
+                        break;
+                    }
+                    else if(input.equalsIgnoreCase("n")){
+                        System.out.println("thoat chương trình");
+                        return;
+                    }
+                    check=true;
+
+                }
+            }
+            for (Charger charger : chargerList) {
+                if (charger.getId().equals(inputId)) {
+                    System.out.println(charger.toString());
+                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                    String input= scanner.nextLine();
+                    if (input.equals("y")){
+                        chargerList.remove(charger);
+                        System.out.println("Da xoa thanh cong.");
+                        break;
+                    }
+                    else if(input.equalsIgnoreCase("n")){
+                        System.out.println("thoat chương trình");
+                        return;
+                    }
+                    check=true;
+
+                }
+            }
+            if (!check){
+                System.out.println("ma ban nhap khong dung.");
+            }
+
+        }
+
+    @Override
+    public void sortList(List<? extends Product> product) {
+        if (product.isEmpty()){
+            System.out.println("danh sách san pham trong.");
+            return;
+        }
+        System.out.println("nhap '1' de sap xep tang dan, '2' de sap xep giam dan.");
+        String inputNum = scanner.nextLine();
+        if (inputNum.equals("1")){
+            product.sort(new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return Double.compare(product.getCost(),t1.getCost());
+                }
+            });
+            showList(product);
+        }
+        else if(inputNum.equals("2")){
+            product.sort(new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return Double.compare(t1.getCost(),product.getCost());
+                }
+            });
+            showList(product);
+        }
+
+    }
+
+//    @Override
+//    public List<? extends Product> readToFile() {
+//        return null;
+//    }
 }
+
+
+
+
 
 
 
