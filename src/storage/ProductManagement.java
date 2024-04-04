@@ -3,8 +3,6 @@ package storage;
 import file.RegexPattern;
 import model.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,11 +11,20 @@ import java.util.Scanner;
 
 
 public class ProductManagement {
-    private final List<Product> productList;
+    private final List<Mouse> mouseList;
+    private final List<Laptop> laptopList;
+    private final List<Keyboard> keyboardList;
+    private final List<Headphone> headphoneList;
+    private final List<Charger> chargerList;
+
     private final Scanner scanner;
 
     public ProductManagement(Scanner scanner) {
-        productList = new ArrayList<>();
+        mouseList = new ArrayList<>();
+        laptopList = new ArrayList<>();
+        keyboardList = new ArrayList<>();
+        headphoneList = new ArrayList<>();
+        chargerList = new ArrayList<>();
         this.scanner = scanner;
     }
 
@@ -52,7 +59,7 @@ public class ProductManagement {
             }
         } while (!check);
         Mouse mouse = new Mouse(id, name, brand, material, dpi, cost, quantity, localDate);
-        productList.add(mouse);
+        mouseList.add(mouse);
     }
 
     public void addLaptop() {
@@ -90,7 +97,7 @@ public class ProductManagement {
             }
         } while (!check);
         Laptop laptop = new Laptop(id, name, brand, size, capacityRam, capacityRom, capacityBattery, cost, quantity, localDate);
-        productList.add(laptop);
+        laptopList.add(laptop);
     }
 
     public void addKeyboard() {
@@ -122,7 +129,7 @@ public class ProductManagement {
             }
         } while (!check);
         Keyboard keyboard = new Keyboard(id, name, brand, material, type, cost, quantity, localDate);
-        productList.add(keyboard);
+        keyboardList.add(keyboard);
     }
 
     public void addHeadphone() {
@@ -157,7 +164,7 @@ public class ProductManagement {
             }
         } while (!check);
         Headphone headphone = new Headphone(id, name, brand, type, capacityBattery, connectionDistance, cost, quantity, localDate);
-        productList.add(headphone);
+        headphoneList.add(headphone);
     }
 
 
@@ -190,18 +197,576 @@ public class ProductManagement {
             }
         } while (!check);
         Charger charger = new Charger(id, name, brand, wattage, cost, quantity, localDate);
-        productList.add(charger);
+        chargerList.add(charger);
     }
 
-    public void updateProduct() {
-        System.out.println("nhap ma san pham ban muon chinh sua.");
-        String id = scanner.nextLine();
-        for (Product product : productList) {
-            if (product.getId().equals(id)) {
-                System.out.println(product.toString());
-                if (product instanceof Mouse) {
+    public void editMouseList() {
+        if (mouseList.isEmpty()) {
+            System.out.println("danh sach san pham dang trong.");
+            return;
+        }
+        boolean check = true;
+        do {
+            boolean found = false;
+            System.out.println("nhạp ma san pham can chinh sua.");
+            String inputId = RegexPattern.checkRegexMouseId();
+            for (Mouse mouse : mouseList) {
+                if (mouse.getId().equals(inputId)) {
+                    while (true) {
+                        System.out.println("chon muc can chinh sua:");
+                        System.out.println("1. Id");
+                        System.out.println("2. Name");
+                        System.out.println("3. Brand");
+                        System.out.println("4. Material");
+                        System.out.println("5. Dpi");
+                        System.out.println("6. Cost");
+                        System.out.println("7. Quantity");
+                        System.out.println("8. Input Day");
+                        System.out.println("9. Exit");
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        switch (choice) {
+                            case 1:
+                                System.out.println("nhap ma san pham: " + mouse.getId());
+                                String newId = RegexPattern.checkRegexMouseId();
+                                mouse.setId(newId);
+                                break;
+                            case 2:
+                                System.out.println("nhap ten san pham: " + mouse.getName());
+                                String newName = RegexPattern.checkCharacter();
+                                mouse.setName(newName);
+                                break;
+                            case 3:
+                                System.out.println("nhap hang san xuat: " + mouse.getBrand());
+                                String newBrand = RegexPattern.checkCharacter();
+                                mouse.setBrand(newBrand);
+                                break;
+                            case 4:
+                                System.out.println("nhap chat lieu san pham: " + mouse.getMaterial());
+                                String newMaterial = RegexPattern.checkCharacter();
+                                mouse.setMaterial(newMaterial);
+                                break;
+                            case 5:
+                                System.out.println("do nhay cua san pham: " + mouse.getDpi());
+                                int newPdi = Integer.parseInt(RegexPattern.checkNum());
+                                mouse.setDpi(newPdi);
+                                break;
+                            case 6:
+                                System.out.println("nhap gia san pham: " + mouse.getCost());
+                                double newCost = Double.parseDouble(RegexPattern.checkNum());
+                                mouse.setCost(newCost);
+                                break;
+                            case 7:
+                                System.out.println("nhap so luong san pham: " + mouse.getQuantity());
+                                int newQuantity = Integer.parseInt(RegexPattern.checkNum());
+                                mouse.setQuantity(newQuantity);
+                                break;
+                            case 8:
+                                boolean checkDay = false;
+                                LocalDate newLocalDate = null;
+                                do {
+                                    System.out.println("nhap ngay san xuat san pham (yyyy-mm-dd): " + mouse.getLocalDate());
+                                    String input = scanner.nextLine();
+                                    try {
+                                        newLocalDate = LocalDate.parse(input);
+                                        check = true;
+                                    } catch (DateTimeException e) {
+                                        System.out.println("ngay thang ban nhap khong hop le");
+                                    }
+                                } while (!checkDay);
+                                mouse.setLocalDate(newLocalDate);
+                                break;
+                            case 9:
+                                System.out.println("exiting...");
+                                System.exit(0);
+                            default:
+                                System.out.println("nhap lai muc can chinh sua.");
+
+                        }
+                        System.out.println("thong tin san pham da duoc chinh sua.");
+                        found = true;
+
+                    }
+
                 }
+
+            }
+            if (!found) {
+                System.out.println("ma ban nhap khong dung vui long nhap lai.");
+            } else {
+                check = false;
+            }
+        } while (check);
+
+    }
+
+    public void editLaptopList() {
+        if (laptopList.isEmpty()) {
+            System.out.println("danh sach san pham dang trong.");
+            return;
+        }
+        boolean check = true;
+        do {
+            boolean found = false;
+            System.out.println("nhạp ma san pham can chinh sua.");
+            String inputId = RegexPattern.checkRegexMouseId();
+            for (Laptop laptop : laptopList) {
+                if (laptop.getId().equals(inputId)) {
+                    while (true) {
+                        System.out.println("chon muc can chinh sua:");
+                        System.out.println("1. Id");
+                        System.out.println("2. Name");
+                        System.out.println("3. Brand");
+                        System.out.println("4. Size");
+                        System.out.println("5. Capacity Ram");
+                        System.out.println("6. Capacity Rom");
+                        System.out.println("7. Capacity Battery");
+                        System.out.println("8. Cost");
+                        System.out.println("9. Quantity");
+                        System.out.println("10. Input Day");
+                        System.out.println("11. Exit");
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        switch (choice) {
+                            case 1:
+                                System.out.println("nhap ma san pham: " + laptop.getId());
+                                String newId = RegexPattern.checkRegexMouseId();
+                                laptop.setId(newId);
+                                break;
+                            case 2:
+                                System.out.println("nhap ten san pham: " + laptop.getName());
+                                String newName = RegexPattern.checkCharacter();
+                                laptop.setName(newName);
+                                break;
+                            case 3:
+                                System.out.println("nhap hang san xuat: " + laptop.getBrand());
+                                String newBrand = RegexPattern.checkCharacter();
+                                laptop.setBrand(newBrand);
+                                break;
+                            case 4:
+                                System.out.println("nhap chat lieu san pham: " + laptop.getSize());
+                                double newSize = Double.parseDouble(RegexPattern.checkNum());
+                                laptop.setSize(newSize);
+                                break;
+                            case 5:
+                                System.out.println("nhap dung luong Ram cua san pham: " + laptop.getCapacityRam());
+                                int newCapacityRam = Integer.parseInt(RegexPattern.checkNum());
+                                laptop.setCapacityRam(newCapacityRam);
+                                break;
+                            case 6:
+                                System.out.println("nhap dung luong bo nho cua san pham: " + laptop.getCapacityRom());
+                                int newCapacityRom = Integer.parseInt(RegexPattern.checkNum());
+                                laptop.setCapacityRom(newCapacityRom);
+                                break;
+                            case 7:
+                                System.out.println("nhap dung luong pin cua san pham: " + laptop.getCapacityBattery());
+                                int newCapacityBattery = Integer.parseInt(RegexPattern.checkNum());
+                                laptop.setCapacityBattery(newCapacityBattery);
+                                break;
+                            case 8:
+                                System.out.println("nhap gia san pham: " + laptop.getCost());
+                                double newCost = Double.parseDouble(RegexPattern.checkNum());
+                                laptop.setCost(newCost);
+                                break;
+                            case 9:
+                                System.out.println("nhap so luong san pham: " + laptop.getQuantity());
+                                int newQuantity = Integer.parseInt(RegexPattern.checkNum());
+                                laptop.setQuantity(newQuantity);
+                                break;
+                            case 10:
+                                boolean checkDay = false;
+                                LocalDate newLocalDate = null;
+                                do {
+                                    System.out.println("nhap ngay san xuat san pham (yyyy-mm-dd): " + laptop.getLocalDate());
+                                    String input = scanner.nextLine();
+                                    try {
+                                        newLocalDate = LocalDate.parse(input);
+                                        check = true;
+                                    } catch (DateTimeException e) {
+                                        System.out.println("ngay thang ban nhap khong hop le");
+                                    }
+                                } while (!checkDay);
+                                laptop.setLocalDate(newLocalDate);
+                                break;
+                            case 11:
+                                System.out.println("exiting...");
+                                System.exit(0);
+                            default:
+                                System.out.println("nhap lai muc can chinh sua.");
+
+                        }
+                        System.out.println("thong tin san pham da duoc chinh sua.");
+                        found = true;
+
+                    }
+
+                }
+
+            }
+            if (!found) {
+                System.out.println("ma ban nhap khong dung vui long nhap lai.");
+            } else {
+                check = false;
+            }
+        } while (check);
+
+    }
+
+    public void editKeyboardList() {
+        if (keyboardList.isEmpty()) {
+            System.out.println("danh sach san pham dang trong.");
+            return;
+        }
+        boolean check = true;
+        do {
+            boolean found = false;
+            System.out.println("nhạp ma san pham can chinh sua.");
+            String inputId = RegexPattern.checkRegexMouseId();
+            for (Keyboard keyboard : keyboardList) {
+                if (keyboard.getId().equals(inputId)) {
+                    while (true) {
+                        System.out.println("chon muc can chinh sua:");
+                        System.out.println("1. Id");
+                        System.out.println("2. Name");
+                        System.out.println("3. Brand");
+                        System.out.println("4. Material");
+                        System.out.println("5. Type");
+                        System.out.println("6. Cost");
+                        System.out.println("7. Quantity");
+                        System.out.println("8. Input Day");
+                        System.out.println("9. Exit");
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        switch (choice) {
+                            case 1:
+                                System.out.println("nhap ma san pham: " + keyboard.getId());
+                                String newId = RegexPattern.checkRegexMouseId();
+                                keyboard.setId(newId);
+                                break;
+                            case 2:
+                                System.out.println("nhap ten san pham: " + keyboard.getName());
+                                String newName = RegexPattern.checkCharacter();
+                                keyboard.setName(newName);
+                                break;
+                            case 3:
+                                System.out.println("nhap hang san xuat: " + keyboard.getBrand());
+                                String newBrand = RegexPattern.checkCharacter();
+                                keyboard.setBrand(newBrand);
+                                break;
+                            case 4:
+                                System.out.println("nhap chat lieu san pham: " + keyboard.getMaterial());
+                                String newMaterial = RegexPattern.checkCharacter();
+                                keyboard.setMaterial(newMaterial);
+                                break;
+                            case 5:
+                                System.out.println("nhap laoi san pham: " + keyboard.getType());
+                                String newType = RegexPattern.checkCharacter();
+                                keyboard.setType(newType);
+                            case 6:
+                                System.out.println("nhap gia san pham: " + keyboard.getCost());
+                                double newCost = Double.parseDouble(RegexPattern.checkNum());
+                                keyboard.setCost(newCost);
+                                break;
+                            case 7:
+                                System.out.println("nhap so luong san pham: " + keyboard.getQuantity());
+                                int newQuantity = Integer.parseInt(RegexPattern.checkNum());
+                                keyboard.setQuantity(newQuantity);
+                                break;
+                            case 8:
+                                boolean checkDay = false;
+                                LocalDate newLocalDate = null;
+                                do {
+                                    System.out.println("nhap ngay san xuat san pham (yyyy-mm-dd): " + keyboard.getLocalDate());
+                                    String input = scanner.nextLine();
+                                    try {
+                                        newLocalDate = LocalDate.parse(input);
+                                        check = true;
+                                    } catch (DateTimeException e) {
+                                        System.out.println("ngay thang ban nhap khong hop le");
+                                    }
+                                } while (!checkDay);
+                                keyboard.setLocalDate(newLocalDate);
+                                break;
+                            case 9:
+                                System.out.println("exiting...");
+                                System.exit(0);
+                            default:
+                                System.out.println("nhap lai muc can chinh sua.");
+
+                        }
+                        System.out.println("thong tin san pham da duoc chinh sua.");
+                        found = true;
+
+                    }
+
+                }
+
+            }
+            if (!found) {
+                System.out.println("ma ban nhap khong dung vui long nhap lai.");
+            } else {
+                check = false;
+            }
+        } while (check);
+
+    }
+
+    public void editHeadphoneList() {
+        if (headphoneList.isEmpty()) {
+            System.out.println("danh sach san pham dang trong.");
+            return;
+        }
+        boolean check = true;
+        do {
+            boolean found = false;
+            System.out.println("nhạp ma san pham can chinh sua.");
+            String inputId = RegexPattern.checkRegexMouseId();
+            for (Headphone headphone : headphoneList) {
+                if (headphone.getId().equals(inputId)) {
+                    while (true) {
+                        System.out.println("chon muc can chinh sua:");
+                        System.out.println("1. Id");
+                        System.out.println("2. Name");
+                        System.out.println("3. Brand");
+                        System.out.println("4. Type");
+                        System.out.println("5. Capacity Battery");
+                        System.out.println("6. Connection Distance");
+                        System.out.println("7. Cost");
+                        System.out.println("8. Quantity");
+                        System.out.println("9. Input Day");
+                        System.out.println("10. Exit");
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        switch (choice) {
+                            case 1:
+                                System.out.println("nhap ma san pham: " + headphone.getId());
+                                String newId = RegexPattern.checkRegexMouseId();
+                                headphone.setId(newId);
+                                break;
+                            case 2:
+                                System.out.println("nhap ten san pham: " + headphone.getName());
+                                String newName = RegexPattern.checkCharacter();
+                                headphone.setName(newName);
+                                break;
+                            case 3:
+                                System.out.println("nhap hang san xuat: " + headphone.getBrand());
+                                String newBrand = RegexPattern.checkCharacter();
+                                headphone.setBrand(newBrand);
+                                break;
+                            case 4:
+                                System.out.println("nhap loai san pham: " + headphone.getType());
+                                String newType = RegexPattern.checkCharacter();
+                                headphone.setType(newType);
+                                break;
+                            case 5:
+                                System.out.println("nhap dung luong pin cua san pham: " + headphone.getCapacityBattery());
+                                int newCapacityBattery = Integer.parseInt(RegexPattern.checkNum());
+                                headphone.setCapacityBattery(newCapacityBattery);
+                                break;
+                            case 6:
+                                System.out.println("nhap khoang cach ket noi cua san pham: " + headphone.getConnectionDistance());
+                                double newConnectionDistance = Double.parseDouble(RegexPattern.checkNum());
+                                headphone.setConnectionDistance(newConnectionDistance);
+                                break;
+                            case 7:
+                                System.out.println("nhap gia san pham: " + headphone.getCost());
+                                double newCost = Double.parseDouble(RegexPattern.checkNum());
+                                headphone.setCost(newCost);
+                                break;
+                            case 8:
+                                System.out.println("nhap so luong san pham: " + headphone.getQuantity());
+                                int newQuantity = Integer.parseInt(RegexPattern.checkNum());
+                                headphone.setQuantity(newQuantity);
+                                break;
+                            case 9:
+                                boolean checkDay = false;
+                                LocalDate newLocalDate = null;
+                                do {
+                                    System.out.println("nhap ngay san xuat san pham (yyyy-mm-dd): " + headphone.getLocalDate());
+                                    String input = scanner.nextLine();
+                                    try {
+                                        newLocalDate = LocalDate.parse(input);
+                                        check = true;
+                                    } catch (DateTimeException e) {
+                                        System.out.println("ngay thang ban nhap khong hop le");
+                                    }
+                                } while (!checkDay);
+                                headphone.setLocalDate(newLocalDate);
+                                break;
+                            case 10:
+                                System.out.println("exiting...");
+                                System.exit(0);
+                            default:
+                                System.out.println("nhap lai muc can chinh sua.");
+
+                        }
+                        System.out.println("thong tin san pham da duoc chinh sua.");
+                        found = true;
+
+                    }
+
+                }
+
+            }
+            if (!found) {
+                System.out.println("ma ban nhap khong dung vui long nhap lai.");
+            } else {
+                check = false;
+            }
+        } while (check);
+
+    }
+
+    public void editChargerList() {
+        if (chargerList.isEmpty()) {
+            System.out.println("danh sach san pham dang trong.");
+            return;
+        }
+        boolean check = true;
+        do {
+            boolean found = false;
+            System.out.println("nhạp ma san pham can chinh sua.");
+            String inputId = RegexPattern.checkRegexMouseId();
+            for (Charger charger : chargerList) {
+                if (charger.getId().equals(inputId)) {
+                    while (true) {
+                        System.out.println("chon muc can chinh sua:");
+                        System.out.println("1. Id");
+                        System.out.println("2. Name");
+                        System.out.println("3. Brand");
+                        System.out.println("4. Wattage");
+                        System.out.println("5. Cost");
+                        System.out.println("6. Quantity");
+                        System.out.println("7. Input Day");
+                        System.out.println("8. Exit");
+                        int choice = Integer.parseInt(scanner.nextLine());
+                        switch (choice) {
+                            case 1:
+                                System.out.println("nhap ma san pham: " + charger.getId());
+                                String newId = RegexPattern.checkRegexChargerId();
+                                charger.setId(newId);
+                                break;
+                            case 2:
+                                System.out.println("nhap ten san pham: " + charger.getName());
+                                String newName = RegexPattern.checkCharacter();
+                                charger.setName(newName);
+                                break;
+                            case 3:
+                                System.out.println("nhap hang san xuat: " + charger.getBrand());
+                                String newBrand = RegexPattern.checkCharacter();
+                                charger.setBrand(newBrand);
+                                break;
+                            case 4:
+                                System.out.println("Nhap cong suat cua san pham: " + charger.getWattage());
+                                double newWattage = Double.parseDouble(RegexPattern.checkNum());
+                                break;
+
+                            case 5:
+                                System.out.println("nhap gia san pham: " + charger.getCost());
+                                double newCost = Double.parseDouble(RegexPattern.checkNum());
+                                charger.setCost(newCost);
+                                break;
+                            case 6:
+                                System.out.println("nhap so luong san pham: " + charger.getQuantity());
+                                int newQuantity = Integer.parseInt(RegexPattern.checkNum());
+                                charger.setQuantity(newQuantity);
+                                break;
+                            case 7:
+                                boolean checkDay = false;
+                                LocalDate newLocalDate = null;
+                                do {
+                                    System.out.println("nhap ngay san xuat san pham (yyyy-mm-dd): " + charger.getLocalDate());
+                                    String input = scanner.nextLine();
+                                    try {
+                                        newLocalDate = LocalDate.parse(input);
+                                        check = true;
+                                    } catch (DateTimeException e) {
+                                        System.out.println("ngay thang ban nhap khong hop le");
+                                    }
+                                } while (!checkDay);
+                                charger.setLocalDate(newLocalDate);
+                                break;
+                            case 8:
+                                System.out.println("exiting...");
+                                System.exit(0);
+                            default:
+                                System.out.println("nhap lai muc can chinh sua.");
+
+                        }
+                        System.out.println("thong tin san pham da duoc chinh sua.");
+                        found = true;
+
+                    }
+
+                }
+
+            }
+            if (!found) {
+                System.out.println("ma ban nhap khong dung vui long nhap lai.");
+            } else {
+                check = false;
+            }
+        } while (check);
+
+
+    }
+
+    public void showList(List<Product> product) {
+        if (product.isEmpty()) {
+            System.out.println("danh sach san pham dang trong");
+        } else {
+            for (Product product1 : product) {
+                System.out.println(product1.toString());
             }
         }
     }
+
+    public void searchProductById() {
+        System.out.println("Nhap ma san pham ban muon tim: ");
+        String inputId = scanner.nextLine();
+        boolean check = false;
+
+            for (Mouse mouse : mouseList) {
+                if (mouse.getId().equals(inputId)) {
+                    System.out.println(mouse.toString());
+                    check=true;
+                    break;
+                }
+            }
+            for (Laptop laptop : laptopList) {
+                if (laptop.getId().equals(inputId)) {
+                    System.out.println(laptop.toString());
+                    check=true;
+                    break;
+                }
+            }
+            for (Keyboard keyboard : keyboardList) {
+                if (keyboard.getId().equals(inputId)) {
+                    System.out.println(keyboard.toString());
+                    check=true;
+                    break;
+                }
+            }
+            for (Headphone headphone : headphoneList) {
+                if (headphone.getId().equals(inputId)) {
+                    System.out.println(headphone.toString());
+                    check=true;
+                    break;
+                }
+            }
+            for (Charger charger : chargerList) {
+                if (charger.getId().equals(inputId)) {
+                    System.out.println(charger.toString());
+                    check=true;
+                    break;
+                }
+            }
+            if (!check){
+                System.out.println("ma ban nhap khong dung.");
+            }
+
+        }
+        
+
+
+
 }
+
+
+
