@@ -3,6 +3,7 @@ package file;
 import model.Product;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,11 +11,11 @@ import java.util.Scanner;
 
 public class FileProduct implements ReadWriteFile {
 
-    private static final String FILE_MOUSE_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/ListMouse";
-    private static final String FILE_LAPTOP_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/ListLaptop";
-    private static final String FILE_KEYBOARD_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/ListKeyboard";
-    private static final String FILE_HEADPHONE_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/ListHeadphone";
-    private static final String FILE_CHARGER_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/ListCharger";
+    private static final String FILE_MOUSE_PATH="/Volumes/DATA/Module_2/CaseModule2/src/mine.txt" ;
+    private static final String FILE_LAPTOP_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/laptop.txt";
+    private static final String FILE_KEYBOARD_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/keyboard.txt";
+    private static final String FILE_HEADPHONE_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/headphone.txt";
+    private static final String FILE_CHARGER_PATH= "/Volumes/DATA/Module_2/CaseModule2/src/charger.txt";
     public static String getFileMousePath(){
         return FILE_MOUSE_PATH;
     }
@@ -34,7 +35,12 @@ public class FileProduct implements ReadWriteFile {
 
     @Override
     public List<? extends Product> readFromFile(String fileName) {
-        List<? extends Product> productList = null;
+        File file= new File(fileName);
+        if(!file.exists()){
+            System.out.println("File does not exist. Creating new list.");
+            return new ArrayList<>();
+        }
+        List<? extends Product>productList = null;
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
             productList = (List<? extends Product>) inputStream.readObject();
             System.out.println("Dữ liệu đã được đọc từ file " + fileName);
@@ -43,6 +49,9 @@ public class FileProduct implements ReadWriteFile {
         }
         return productList;
     }
+
+
+
 
     @Override
     public void writeToFile(String fileName, List<? extends Product> products) {

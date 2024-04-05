@@ -26,8 +26,8 @@ public class Charger extends Product implements Serializable {
 
     @Override
     public String toString() {
-        return  "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | Watage: "+getWattage()+
-                " | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+        return  "Id: "+ getId()+" | name: "+ getName()+" | brand: "+ getBrand()+" | Watage: "+getWattage()+
+                " | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+ getLocalDate();
 
     }
 }

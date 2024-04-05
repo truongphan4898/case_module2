@@ -7,7 +7,7 @@ public class Mouse extends Product implements Serializable {
     private String material;
     private int dpi;
 
-    public Mouse( String material, double weight, int dpi) {
+    public Mouse( String material, int dpi) {
 
         this.material = material;
         this.dpi = dpi;
@@ -38,8 +38,8 @@ public class Mouse extends Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | material: "+getMaterial()+
-                " | dpi: "+getDpi()+" | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+        return "Id: "+getId()+" | name: "+getName()+" | brand: "+getBrand()+" | material: "+getMaterial()+
+                " | dpi: "+getDpi()+" | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+getLocalDate();
 
     }
 }

@@ -1,7 +1,7 @@
 package view;
 
 import file.FileProduct;
-import model.Product;
+import model.*;
 import storage.ProductManagement;
 
 
@@ -9,27 +9,22 @@ import java.util.List;
 import java.util.Scanner;
 
 
-
-
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ProductManagement productManagement = new ProductManagement(scanner);
-        Main main=new Main();
-        FileProduct fileProduct=new FileProduct();
-        fileProduct.readFromFile(FileProduct.getFileMousePath());
-        fileProduct.readFromFile(FileProduct.getFileLaptopPath());
-        fileProduct.readFromFile(FileProduct.getFileKeyboardPath());
-        fileProduct.readFromFile(FileProduct.getFileHeadphonePath());
-        fileProduct.readFromFile(FileProduct.getFileChargerPath());
-
-        productManagement.checkList(productManagement.getMouseList());
-        productManagement.checkList(productManagement.getLaptopList());
-        productManagement.checkList(productManagement.getKeyboardList());
-        productManagement.checkList(productManagement.getHeadphoneList());
-        productManagement.checkList(productManagement.getChargerList());
-        boolean exitProgram=false;
-        while (! exitProgram) {
+        ProductManagement productManagement;
+        Main main = new Main();
+        FileProduct fileProduct = new FileProduct();
+        List<Mouse> mouseList = (List<Mouse>) fileProduct.readFromFile(FileProduct.getFileMousePath());
+        List<Laptop> laptopList = (List<Laptop>) fileProduct.readFromFile(FileProduct.getFileLaptopPath());
+        List<Keyboard> keyboardList = (List<Keyboard>) fileProduct.readFromFile(FileProduct.getFileKeyboardPath());
+        List<Headphone> headphoneList = (List<Headphone>) fileProduct.readFromFile(FileProduct.getFileHeadphonePath());
+        List<Charger> chargerList = (List<Charger>) fileProduct.readFromFile(FileProduct.getFileChargerPath());
+        productManagement = new ProductManagement(mouseList, laptopList, keyboardList, headphoneList, chargerList,fileProduct, scanner);
+        productManagement.checkList();
+        boolean exitProgram = false;
+        while (!exitProgram) {
+            System.out.println();
             System.out.println("------------MENU QUAN LY SAN PHAM------------");
             System.out.println();
             System.out.println("1. Hien thi danh sach san pham. ");
@@ -63,7 +58,7 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("dang thoat....");
-                    exitProgram=true;
+                    exitProgram = true;
                     break;
                 default:
                     System.out.println("chon muc muon thuc hien.");
@@ -71,21 +66,22 @@ public class Main {
 
         }
     }
-    public void displayList(ProductManagement productManagement){
-        Scanner scanner=new Scanner(System.in);
+
+    public void displayList(ProductManagement productManagement) {
+        Scanner scanner = new Scanner(System.in);
         boolean exitDisplayList = false;
 
-        while (! exitDisplayList){
+        while (!exitDisplayList) {
             System.out.println("chon danh sach muon hien thi:");
             System.out.println();
             System.out.println("1. Danh sach chuot may tinh.");
-            System.out.println("2. Danh sach laptop." );
+            System.out.println("2. Danh sach laptop.");
             System.out.println("3. Danh sach ban phim. ");
             System.out.println("4. Danh sach tai nghe. ");
             System.out.println("5. Danh sach sac. ");
             System.out.println("6. Thoat...");
-            int num= Integer.parseInt(scanner.nextLine());
-            switch (num){
+            int num = Integer.parseInt(scanner.nextLine());
+            switch (num) {
                 case 1:
                     productManagement.showList(productManagement.getMouseList());
                     break;
@@ -111,23 +107,24 @@ public class Main {
             }
         }
     }
-    public void addProduct(ProductManagement productManagement){
-        Scanner scanner=new Scanner(System.in);
+
+    public void addProduct(ProductManagement productManagement) {
+        Scanner scanner = new Scanner(System.in);
         boolean exitAddProduct = false;
 
-        while (! exitAddProduct){
+        while (!exitAddProduct) {
             System.out.println("chon danh sach muon them san pham: ");
             System.out.println();
             System.out.println("1. Danh sach chuot may tinh.");
-            System.out.println("2. Danh sach laptop." );
+            System.out.println("2. Danh sach laptop.");
             System.out.println("3. Danh sach ban phim. ");
             System.out.println("4. Danh sach tai nghe. ");
             System.out.println("5. Danh sach sac. ");
             System.out.println("6. Thoat...");
-            int num= Integer.parseInt(scanner.nextLine());
-            switch (num){
+            int num = Integer.parseInt(scanner.nextLine());
+            switch (num) {
                 case 1:
-                   productManagement.addMouse();
+                    productManagement.addMouse();
                     break;
                 case 2:
                     productManagement.addLaptop();
@@ -151,21 +148,22 @@ public class Main {
             }
         }
     }
-    public void updateProduct(ProductManagement productManagement){
-        Scanner scanner=new Scanner(System.in);
+
+    public void updateProduct(ProductManagement productManagement) {
+        Scanner scanner = new Scanner(System.in);
         boolean exitUpdateProduct = false;
 
-        while (! exitUpdateProduct){
+        while (!exitUpdateProduct) {
             System.out.println("chon danh sach san pham muon chinh sua :");
             System.out.println();
             System.out.println("1. Danh sach chuot may tinh.");
-            System.out.println("2. Danh sach laptop." );
+            System.out.println("2. Danh sach laptop.");
             System.out.println("3. Danh sach ban phim. ");
             System.out.println("4. Danh sach tai nghe. ");
             System.out.println("5. Danh sach sac. ");
             System.out.println("6. Thoat...");
-            int num= Integer.parseInt(scanner.nextLine());
-            switch (num){
+            int num = Integer.parseInt(scanner.nextLine());
+            switch (num) {
                 case 1:
                     productManagement.editMouseList();
                     break;
@@ -190,21 +188,22 @@ public class Main {
             }
         }
     }
-    public void sortProduct(ProductManagement productManagement){
-        Scanner scanner=new Scanner(System.in);
+
+    public void sortProduct(ProductManagement productManagement) {
+        Scanner scanner = new Scanner(System.in);
         boolean exitSortProduct = false;
 
-        while (! exitSortProduct){
+        while (!exitSortProduct) {
             System.out.println("chon danh sach muon sap xep:");
             System.out.println();
             System.out.println("1. Danh sach chuot may tinh.");
-            System.out.println("2. Danh sach laptop." );
+            System.out.println("2. Danh sach laptop.");
             System.out.println("3. Danh sach ban phim. ");
             System.out.println("4. Danh sach tai nghe. ");
             System.out.println("5. Danh sach sac. ");
             System.out.println("6. Thoat...");
-            int num= Integer.parseInt(scanner.nextLine());
-            switch (num){
+            int num = Integer.parseInt(scanner.nextLine());
+            switch (num) {
                 case 1:
                     productManagement.sortList(productManagement.getMouseList());
                     break;

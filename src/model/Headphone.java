@@ -47,9 +47,9 @@ public class Headphone extends Product implements Serializable {
 
    @Override
    public String toString() {
-      return  "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | Type: "+getType()+
+      return  "Id: "+ getId()+" | name: "+ getName()+" | brand: "+ getBrand()+" | Type: "+getType()+
               " | CapacityBattery: "+getCapacityBattery()+" | Connection Distance: "+getConnectionDistance()+
-              " | cost: " +getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+              " | cost: " +getCost()+" | quantity: "+ getQuantity()+" | Date: "+ getLocalDate();
 
    }
 }

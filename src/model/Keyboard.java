@@ -40,8 +40,8 @@ public class Keyboard extends Product implements Serializable {
 
     @Override
     public String toString() {
-        return  "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | material: "+getMaterial()+
-                " | Type: "+getType()+" | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+        return  "Id: "+getId()+" | name: "+getName()+" | brand: "+getBrand()+" | material: "+getMaterial()+
+                " | Type: "+getType()+" | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+getLocalDate();
 
     }
 }

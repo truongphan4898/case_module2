@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Scanner;
 
 
-
-
 public class ProductManagement implements ShowList {
     private final List<Mouse> mouseList;
     private final List<Laptop> laptopList;
@@ -32,21 +30,36 @@ public class ProductManagement implements ShowList {
         headphoneList = new ArrayList<>();
         chargerList = new ArrayList<>();
         this.scanner = scanner;
-        this.fileProduct=new FileProduct();
+        this.fileProduct = new FileProduct();
     }
-    public List<Mouse> getMouseList(){
+
+    public ProductManagement(List<Mouse> mouseList, List<Laptop> laptopList, List<Keyboard> keyboardList, List<Headphone> headphoneList, List<Charger> chargerList, FileProduct fileProduct, Scanner scanner) {
+        this.mouseList = mouseList;
+        this.laptopList = laptopList;
+        this.keyboardList = keyboardList;
+        this.headphoneList = headphoneList;
+        this.chargerList = chargerList;
+        this.fileProduct = fileProduct;
+        this.scanner = scanner;
+    }
+
+    public List<Mouse> getMouseList() {
         return mouseList;
     }
-    public List<Laptop> getLaptopList(){
+
+    public List<Laptop> getLaptopList() {
         return laptopList;
     }
-    public List<Keyboard> getKeyboardList(){
+
+    public List<Keyboard> getKeyboardList() {
         return keyboardList;
     }
-    public List<Headphone> getHeadphoneList(){
+
+    public List<Headphone> getHeadphoneList() {
         return headphoneList;
     }
-    public List<Charger> getChargerList(){
+
+    public List<Charger> getChargerList() {
         return chargerList;
     }
 
@@ -60,7 +73,7 @@ public class ProductManagement implements ShowList {
         String name = RegexPattern.checkCharacter();
         System.out.println("Nhap hang san xuat:");
         String brand = RegexPattern.checkCharacter();
-        System.out.println("Nhap chat kieu san pham:");
+        System.out.println("Nhap chat lieu san pham:");
         String material = RegexPattern.checkCharacter();
         System.out.println("Nhap do nhay cua chuot:");
         int dpi = Integer.parseInt(RegexPattern.checkNum());
@@ -82,7 +95,7 @@ public class ProductManagement implements ShowList {
         } while (!check);
         Mouse mouse = new Mouse(id, name, brand, material, dpi, cost, quantity, localDate);
         mouseList.add(mouse);
-        fileProduct.writeToFile( FileProduct.getFileMousePath(),mouseList);
+        fileProduct.writeToFile(FileProduct.getFileMousePath(), mouseList);
     }
 
     public void addLaptop() {
@@ -121,7 +134,7 @@ public class ProductManagement implements ShowList {
         } while (!check);
         Laptop laptop = new Laptop(id, name, brand, size, capacityRam, capacityRom, capacityBattery, cost, quantity, localDate);
         laptopList.add(laptop);
-        fileProduct.writeToFile(FileProduct.getFileLaptopPath(),laptopList);
+        fileProduct.writeToFile(FileProduct.getFileLaptopPath(), laptopList);
     }
 
     public void addKeyboard() {
@@ -154,7 +167,7 @@ public class ProductManagement implements ShowList {
         } while (!check);
         Keyboard keyboard = new Keyboard(id, name, brand, material, type, cost, quantity, localDate);
         keyboardList.add(keyboard);
-        fileProduct.writeToFile(FileProduct.getFileKeyboardPath(),keyboardList);
+        fileProduct.writeToFile(FileProduct.getFileKeyboardPath(), keyboardList);
     }
 
     public void addHeadphone() {
@@ -190,7 +203,7 @@ public class ProductManagement implements ShowList {
         } while (!check);
         Headphone headphone = new Headphone(id, name, brand, type, capacityBattery, connectionDistance, cost, quantity, localDate);
         headphoneList.add(headphone);
-        fileProduct.writeToFile(FileProduct.getFileHeadphonePath(),headphoneList);
+        fileProduct.writeToFile(FileProduct.getFileHeadphonePath(), headphoneList);
     }
 
 
@@ -224,7 +237,7 @@ public class ProductManagement implements ShowList {
         } while (!check);
         Charger charger = new Charger(id, name, brand, wattage, cost, quantity, localDate);
         chargerList.add(charger);
-        fileProduct.writeToFile(FileProduct.getFileChargerPath(),chargerList);
+        fileProduct.writeToFile(FileProduct.getFileChargerPath(), chargerList);
     }
 
     public void editMouseList() {
@@ -233,14 +246,14 @@ public class ProductManagement implements ShowList {
             return;
         }
         boolean check = false;
-        do{
+        do {
             boolean found = false;
             System.out.println("nhạp ma san pham can chinh sua.");
             String inputId = RegexPattern.checkRegexMouseId();
             for (Mouse mouse : mouseList) {
                 if (mouse.getId().equals(inputId)) {
                     boolean exit = false;
-                    while (! exit) {
+                    while (!exit) {
                         System.out.println("chon muc can chinh sua:");
                         System.out.println("1. Id");
                         System.out.println("2. Name");
@@ -305,7 +318,7 @@ public class ProductManagement implements ShowList {
                                 break;
                             case 9:
                                 System.out.println("Quay ve menu chinh");
-                                exit= true;
+                                exit = true;
                                 break;
                             default:
                                 System.out.println("nhap lai muc can chinh sua.");
@@ -325,7 +338,7 @@ public class ProductManagement implements ShowList {
                 check = true;
             }
         } while (!check);
-        fileProduct.writeToFile( FileProduct.getFileMousePath(),mouseList);
+        fileProduct.writeToFile(FileProduct.getFileMousePath(), mouseList);
 
     }
 
@@ -335,14 +348,14 @@ public class ProductManagement implements ShowList {
             return;
         }
         boolean check = true;
-            do{
+        do {
             boolean found = false;
             System.out.println("nhạp ma san pham can chinh sua.");
             String inputId = RegexPattern.checkRegexLaptopId();
             for (Laptop laptop : laptopList) {
                 if (laptop.getId().equals(inputId)) {
                     boolean exit = false;
-                    while (! exit) {
+                    while (!exit) {
                         System.out.println("chon muc can chinh sua:");
                         System.out.println("1. Id");
                         System.out.println("2. Name");
@@ -419,7 +432,7 @@ public class ProductManagement implements ShowList {
                                 break;
                             case 11:
                                 System.out.println("Quay ve menu chinh");
-                                exit=true;
+                                exit = true;
                                 break;
                             default:
                                 System.out.println("nhap lai muc can chinh sua.");
@@ -438,8 +451,8 @@ public class ProductManagement implements ShowList {
             } else {
                 check = false;
             }
-        }while (!check);
-        fileProduct.writeToFile(FileProduct.getFileLaptopPath(),laptopList);
+        } while (!check);
+        fileProduct.writeToFile(FileProduct.getFileLaptopPath(), laptopList);
     }
 
     public void editKeyboardList() {
@@ -454,7 +467,7 @@ public class ProductManagement implements ShowList {
             String inputId = RegexPattern.checkRegexKeyboadId();
             for (Keyboard keyboard : keyboardList) {
                 if (keyboard.getId().equals(inputId)) {
-                    boolean exit=false;
+                    boolean exit = false;
                     while (!exit) {
                         System.out.println("chon muc can chinh sua:");
                         System.out.println("1. Id");
@@ -519,7 +532,7 @@ public class ProductManagement implements ShowList {
                                 break;
                             case 9:
                                 System.out.println("Quay ve menu chinh");
-                                exit=true;
+                                exit = true;
                             default:
                                 System.out.println("nhap lai muc can chinh sua.");
 
@@ -538,7 +551,7 @@ public class ProductManagement implements ShowList {
                 check = false;
             }
         } while (check);
-        fileProduct.writeToFile(FileProduct.getFileKeyboardPath(),keyboardList);
+        fileProduct.writeToFile(FileProduct.getFileKeyboardPath(), keyboardList);
     }
 
     public void editHeadphoneList() {
@@ -643,7 +656,7 @@ public class ProductManagement implements ShowList {
                 check = false;
             }
         } while (check);
-        fileProduct.writeToFile(FileProduct.getFileHeadphonePath(),headphoneList);
+        fileProduct.writeToFile(FileProduct.getFileHeadphonePath(), headphoneList);
     }
 
     public void editChargerList() {
@@ -736,13 +749,13 @@ public class ProductManagement implements ShowList {
                 check = false;
             }
         } while (check);
-        fileProduct.writeToFile(FileProduct.getFileChargerPath(),chargerList);
+        fileProduct.writeToFile(FileProduct.getFileChargerPath(), chargerList);
 
 
     }
 
 
-    public void showList(List<? extends  Product> product) {
+    public void showList(List<? extends Product> product) {
         if (product.isEmpty()) {
             System.out.println("danh sach san pham dang trong");
         } else {
@@ -757,183 +770,191 @@ public class ProductManagement implements ShowList {
         String inputId = scanner.nextLine();
         boolean check = false;
 
-            for (Mouse mouse : mouseList) {
-                if (mouse.getId().equals(inputId)) {
-                    System.out.println(mouse.toString());
-                    check=true;
-                    break;
-                }
+        for (Mouse mouse : mouseList) {
+            if (mouse.getId().equals(inputId)) {
+                System.out.println(mouse.toString());
+                check = true;
+                break;
             }
-            for (Laptop laptop : laptopList) {
-                if (laptop.getId().equals(inputId)) {
-                    System.out.println(laptop.toString());
-                    check=true;
-                    break;
-                }
-            }
-            for (Keyboard keyboard : keyboardList) {
-                if (keyboard.getId().equals(inputId)) {
-                    System.out.println(keyboard.toString());
-                    check=true;
-                    break;
-                }
-            }
-            for (Headphone headphone : headphoneList) {
-                if (headphone.getId().equals(inputId)) {
-                    System.out.println(headphone.toString());
-                    check=true;
-                    break;
-                }
-            }
-            for (Charger charger : chargerList) {
-                if (charger.getId().equals(inputId)) {
-                    System.out.println(charger.toString());
-                    check=true;
-                    break;
-                }
-            }
-            if (!check){
-                System.out.println("ma ban nhap khong dung.");
-            }
-
         }
-        public void deleteProductById(){
-            System.out.println("Nhap ma san pham ban muon xoa: ");
-            String inputId = scanner.nextLine();
-            boolean check = false;
-
-            for (Mouse mouse : mouseList) {
-                if (mouse.getId().equals(inputId)) {
-                    System.out.println(mouse.toString());
-                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
-                    String input= scanner.nextLine();
-                    if (input.equals("y")){
-                        mouseList.remove(mouse);
-                        System.out.println("Da xoa thanh cong.");
-                        fileProduct.writeToFile(FileProduct.getFileMousePath(),mouseList);
-                        break;
-                    }
-                    else if(input.equalsIgnoreCase("n")){
-                        System.out.println("thoat chương trình");
-                        return;
-                    }
-                    check=true;
-
-                }
+        for (Laptop laptop : laptopList) {
+            if (laptop.getId().equals(inputId)) {
+                System.out.println(laptop.toString());
+                check = true;
+                break;
             }
-            for (Laptop laptop : laptopList) {
-                if (laptop.getId().equals(inputId)) {
-                    System.out.println(laptop.toString());
-                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
-                    String input= scanner.nextLine();
-                    if (input.equals("y")){
-                        laptopList.remove(laptop);
-                        System.out.println("Da xoa thanh cong.");
-                        fileProduct.writeToFile(FileProduct.getFileLaptopPath(),laptopList);
-                        break;
-                    }
-                    else if(input.equalsIgnoreCase("n")){
-                        System.out.println("thoat chương trình");
-                        return;
-                    }
-                    check=true;
-
-                }
-            }
-            for (Keyboard keyboard : keyboardList) {
-                if (keyboard.getId().equals(inputId)) {
-                    System.out.println(keyboard.toString());
-                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
-                    String input= scanner.nextLine();
-                    if (input.equals("y")){
-                        keyboardList.remove(keyboard);
-                        System.out.println("Da xoa thanh cong.");
-                        fileProduct.writeToFile(FileProduct.getFileKeyboardPath(),keyboardList);
-                        break;
-                    }
-                    else if(input.equalsIgnoreCase("n")){
-                        System.out.println("thoat chương trình");
-                        return;
-                    }
-                    check=true;
-
-                }
-            }
-            for (Headphone headphone : headphoneList) {
-                if (headphone.getId().equals(inputId)) {
-                    System.out.println(headphone.toString());
-                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
-                    String input= scanner.nextLine();
-                    if (input.equals("y")){
-                        headphoneList.remove(headphone);
-                        System.out.println("Da xoa thanh cong.");
-                        fileProduct.writeToFile(FileProduct.getFileHeadphonePath(),headphoneList);
-                        break;
-                    }
-                    else if(input.equalsIgnoreCase("n")){
-                        System.out.println("thoat chương trình");
-                        return;
-                    }
-                    check=true;
-
-                }
-            }
-            for (Charger charger : chargerList) {
-                if (charger.getId().equals(inputId)) {
-                    System.out.println(charger.toString());
-                    System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
-                    String input= scanner.nextLine();
-                    if (input.equals("y")){
-                        chargerList.remove(charger);
-                        System.out.println("Da xoa thanh cong.");
-                        fileProduct.writeToFile(FileProduct.getFileChargerPath(),chargerList);
-                        break;
-                    }
-                    else if(input.equalsIgnoreCase("n")){
-                        System.out.println("thoat chương trình");
-                        return;
-                    }
-                    check=true;
-
-                }
-            }
-            if (!check){
-                System.out.println("ma ban nhap khong dung.");
-            }
-
         }
+        for (Keyboard keyboard : keyboardList) {
+            if (keyboard.getId().equals(inputId)) {
+                System.out.println(keyboard.toString());
+                check = true;
+                break;
+            }
+        }
+        for (Headphone headphone : headphoneList) {
+            if (headphone.getId().equals(inputId)) {
+                System.out.println(headphone.toString());
+                check = true;
+                break;
+            }
+        }
+        for (Charger charger : chargerList) {
+            if (charger.getId().equals(inputId)) {
+                System.out.println(charger.toString());
+                check = true;
+                break;
+            }
+        }
+        if (!check) {
+            System.out.println("ma ban nhap khong dung.");
+        }
+
+    }
+
+    public void deleteProductById() {
+        System.out.println("Nhap ma san pham ban muon xoa: ");
+        String inputId = scanner.nextLine();
+        boolean check = false;
+
+        for (Mouse mouse : mouseList) {
+            if (mouse.getId().equals(inputId)) {
+                System.out.println(mouse.toString());
+                System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                String input = scanner.nextLine();
+                if (input.equals("y")) {
+                    mouseList.remove(mouse);
+                    System.out.println("Da xoa thanh cong.");
+                    fileProduct.writeToFile(FileProduct.getFileMousePath(), mouseList);
+                    break;
+                } else if (input.equalsIgnoreCase("n")) {
+                    System.out.println("thoat chương trình");
+                    return;
+                }
+                check = true;
+
+            }
+        }
+        for (Laptop laptop : laptopList) {
+            if (laptop.getId().equals(inputId)) {
+                System.out.println(laptop.toString());
+                System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                String input = scanner.nextLine();
+                if (input.equals("y")) {
+                    laptopList.remove(laptop);
+                    System.out.println("Da xoa thanh cong.");
+                    fileProduct.writeToFile(FileProduct.getFileLaptopPath(), laptopList);
+                    break;
+                } else if (input.equalsIgnoreCase("n")) {
+                    System.out.println("thoat chương trình");
+                    return;
+                }
+                check = true;
+
+            }
+        }
+        for (Keyboard keyboard : keyboardList) {
+            if (keyboard.getId().equals(inputId)) {
+                System.out.println(keyboard.toString());
+                System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                String input = scanner.nextLine();
+                if (input.equals("y")) {
+                    keyboardList.remove(keyboard);
+                    System.out.println("Da xoa thanh cong.");
+                    fileProduct.writeToFile(FileProduct.getFileKeyboardPath(), keyboardList);
+                    break;
+                } else if (input.equalsIgnoreCase("n")) {
+                    System.out.println("thoat chương trình");
+                    return;
+                }
+                check = true;
+
+            }
+        }
+        for (Headphone headphone : headphoneList) {
+            if (headphone.getId().equals(inputId)) {
+                System.out.println(headphone.toString());
+                System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                String input = scanner.nextLine();
+                if (input.equals("y")) {
+                    headphoneList.remove(headphone);
+                    System.out.println("Da xoa thanh cong.");
+                    fileProduct.writeToFile(FileProduct.getFileHeadphonePath(), headphoneList);
+                    break;
+                } else if (input.equalsIgnoreCase("n")) {
+                    System.out.println("thoat chương trình");
+                    return;
+                }
+                check = true;
+
+            }
+        }
+        for (Charger charger : chargerList) {
+            if (charger.getId().equals(inputId)) {
+                System.out.println(charger.toString());
+                System.out.println("Nhan 'y' de xoa san pham, 'n' de thoat chuong trinh.");
+                String input = scanner.nextLine();
+                if (input.equals("y")) {
+                    chargerList.remove(charger);
+                    System.out.println("Da xoa thanh cong.");
+                    fileProduct.writeToFile(FileProduct.getFileChargerPath(), chargerList);
+                    break;
+                } else if (input.equalsIgnoreCase("n")) {
+                    System.out.println("thoat chương trình");
+                    return;
+                }
+                check = true;
+
+            }
+        }
+        if (!check) {
+            System.out.println("ma ban nhap khong dung.");
+        }
+
+    }
 
     @Override
     public void sortList(List<? extends Product> product) {
-        if (product.isEmpty()){
+        if (product.isEmpty()) {
             System.out.println("danh sách san pham trong.");
             return;
         }
         System.out.println("nhap '1' de sap xep tang dan, '2' de sap xep giam dan.");
         String inputNum = scanner.nextLine();
-        if (inputNum.equals("1")){
+        if (inputNum.equals("1")) {
             product.sort(new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
-                    return Double.compare(product.getCost(),t1.getCost());
+                    return Double.compare(product.getCost(), t1.getCost());
                 }
             });
             showList(product);
-        }
-        else if(inputNum.equals("2")){
+        } else if (inputNum.equals("2")) {
             product.sort(new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
-                    return Double.compare(t1.getCost(),product.getCost());
+                    return Double.compare(t1.getCost(), product.getCost());
                 }
             });
             showList(product);
         }
 
     }
-    public void checkList(List<? extends Product>products){
-        if(products.size()<=5){
-            System.out.println(products+ " co "+products.size()+" san pham, can them san pham.");
+
+    public void checkList() {
+        if(mouseList.isEmpty()){
+            System.out.println("danh sach chuot dang trong can them san pham.");
+        }
+        if(laptopList.isEmpty()){
+            System.out.println("danh sach may tinh dang trong can them san pham.");
+        }
+        if(keyboardList.isEmpty()){
+            System.out.println("danh sach ban phim dang trong can them san pham.");
+        }
+        if(headphoneList.isEmpty()){
+            System.out.println("danh sach tai nghe dang trong can them san pham.");
+        }
+        if(chargerList.isEmpty()){
+            System.out.println("danh sach sac dang trong can them san pham.");
         }
     }
 
