@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Keyboard extends Product{
+public class Keyboard extends Product implements Serializable {
    private String material;
    private String type;
 
@@ -39,9 +40,8 @@ public class Keyboard extends Product{
 
     @Override
     public String toString() {
-        return "Keyboard{" +
-                "material='" + material + '\'' +
-                ", type='" + type + '\'' +
-                '}'+super.toString();
+        return  "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | material: "+getMaterial()+
+                " | Type: "+getType()+" | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+
     }
 }

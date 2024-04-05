@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class RegexPattern {
     private static final String REGEX_MOUSE_ID = "^M[a-zA-Z0-9]";
-    private static final String REGEX_LAPTOP_ID = "^LT[a-zA-Z0-9]+";
-    private static final String REGEX_KEYBOARD_ID = "^KB[a-zA-Z0-9]+";
-    private static final String REGEX_HEADPHONE_ID = "^HP[a-zA-Z0-9]+";
-    private static final String REGEX_CHARGER_ID = "^C[a-zA-Z0-9]+";
+    private static final String REGEX_LAPTOP_ID = "^LT[a-zA-Z0-9]";
+    private static final String REGEX_KEYBOARD_ID = "^KB[a-zA-Z0-9]";
+    private static final String REGEX_HEADPHONE_ID = "^HP[a-zA-Z0-9]";
+    private static final String REGEX_CHARGER_ID = "^C[a-zA-Z0-9]";
     private static final String REGEX_CHARACTER = "^[a-zA-Z][a-zA-Z0-9]*";
     private static final String REGEX_NUM = "^\\d+(\\.\\d+)?$";
     private static final Scanner scanner = new Scanner(System.in);

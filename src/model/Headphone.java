@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Headphone extends Product{
+public class Headphone extends Product implements Serializable {
    private String type;
    private  int capacityBattery;
    private double connectionDistance;
@@ -46,10 +47,9 @@ public class Headphone extends Product{
 
    @Override
    public String toString() {
-      return "Headphone{" +
-              "type='" + type + '\'' +
-              ", capacityBattery=" + capacityBattery +
-              ", connectionDistance=" + connectionDistance +
-              '}'+super.toString();
+      return  "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | Type: "+getType()+
+              " | CapacityBattery: "+getCapacityBattery()+" | Connection Distance: "+getConnectionDistance()+
+              " | cost: " +getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+
    }
 }

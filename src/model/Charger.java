@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.SequencedCollection;
 
-public class Charger extends Product{
+public class Charger extends Product implements Serializable {
    private double wattage;
 
     public Charger(double wattage) {
@@ -24,8 +26,8 @@ public class Charger extends Product{
 
     @Override
     public String toString() {
-        return "Charger{" +
-                "wattage=" + wattage +
-                '}'+super.toString();
+        return  "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | Watage: "+getWattage()+
+                " | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+
     }
 }

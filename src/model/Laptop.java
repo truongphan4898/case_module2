@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Laptop extends Product{
+public class Laptop extends Product implements Serializable {
 
     private double size;
     private int capacityRam;
@@ -58,11 +59,10 @@ public class Laptop extends Product{
 
     @Override
     public String toString() {
-        return "Phone{" +
-                ", size=" + size +
-                ", capacityRam=" + capacityRam +
-                ", capacityRom=" + capacityRom +
-                ", capacityBattery=" + capacityBattery +
-                '}'+ super.toString();
+        return  "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | size: "+getSize()+
+                " | CapacityRam: "+getCapacityRam()+" | CapacityRom: "+getCapacityRom()+" | CapacityBattery: "+getCapacityBattery()+
+                " | cost: "+getCost()+" | quantity: "+ getQuantity()+
+                " | Date: "+super.getLocalDate();
+
     }
 }

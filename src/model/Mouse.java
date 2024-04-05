@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Mouse extends Product{
+public class Mouse extends Product implements Serializable {
     private String material;
     private int dpi;
 
@@ -37,9 +38,8 @@ public class Mouse extends Product{
 
     @Override
     public String toString() {
-        return "Mouse{" +
-                ", material='" + material + '\'' +
-                ", dpi=" + dpi +
-                '}'+super.toString();
+        return "Id: "+super.getId()+" | name: "+super.getName()+" | brand: "+super.getBrand()+" | material: "+getMaterial()+
+                " | dpi: "+getDpi()+" | cost: "+getCost()+" | quantity: "+ getQuantity()+" | Date: "+super.getLocalDate();
+
     }
 }
