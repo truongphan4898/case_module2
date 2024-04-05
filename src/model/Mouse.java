@@ -21,6 +21,7 @@ public class Mouse extends Product implements Serializable {
     }
 
 
+
     public String getMaterial() {
         return material;
     }

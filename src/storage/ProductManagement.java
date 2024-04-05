@@ -21,15 +21,14 @@ public class ProductManagement implements ShowList {
     private final List<Charger> chargerList;
 
     private final FileProduct fileProduct;
-    private final Scanner scanner;
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public ProductManagement(Scanner scanner) {
+    public ProductManagement() {
         mouseList = new ArrayList<>();
         laptopList = new ArrayList<>();
         keyboardList = new ArrayList<>();
         headphoneList = new ArrayList<>();
         chargerList = new ArrayList<>();
-        this.scanner = scanner;
         this.fileProduct = new FileProduct();
     }
 
@@ -40,7 +39,7 @@ public class ProductManagement implements ShowList {
         this.headphoneList = headphoneList;
         this.chargerList = chargerList;
         this.fileProduct = fileProduct;
-        this.scanner = scanner;
+
     }
 
     public List<Mouse> getMouseList() {

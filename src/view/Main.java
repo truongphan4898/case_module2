@@ -112,6 +112,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean exitAddProduct = false;
 
+
         while (!exitAddProduct) {
             System.out.println("chon danh sach muon them san pham: ");
             System.out.println();
